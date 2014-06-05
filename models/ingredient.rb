@@ -1,8 +1,13 @@
-require_relative 'single_ingredient'
-require_relative 'single_recipe'
 require_relative 'recipe'
 
 class Ingredient
+  attr_reader :id, :name, :recipe_id
+
+  def initialize(id, name, recipe_id)
+    @id = id
+    @name = name
+    @recipe_id = recipe_id
+  end
 
   def self.all
     ingredients = []
@@ -10,7 +15,7 @@ class Ingredient
       conn.exec("SELECT * FROM ingredients;")
     end
     query.each do |ingredient|
-      new_ingredient = SingleIngredient.new(ingredient['id'], ingredient['name'], ingredient['recipe_id'])
+      new_ingredient = self.new(ingredient['id'], ingredient['name'], ingredient['recipe_id'])
       ingredients << new_ingredient
     end
     ingredients
