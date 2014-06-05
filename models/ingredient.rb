@@ -1,13 +1,9 @@
-class SingleIngredient
-  attr_reader :id, :name, :recipe_id
-  def initialize(id, name, recipe_id)
-    @id = id
-    @name = name
-    @recipe_id = recipe_id
-  end
-end
+require_relative 'single_ingredient'
+require_relative 'single_recipe'
+require_relative 'recipe'
 
 class Ingredient
+
   def self.all
     ingredients = []
     query = self.db_connection do |conn|
@@ -29,11 +25,9 @@ class Ingredient
     end
   end
 
-  def each
+  def self.each
     self.all.each
   end
-
-
 end
 
 
