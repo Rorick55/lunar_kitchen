@@ -16,14 +16,10 @@ end
   def self.all
     recipes = []
        query = self.db_connection do |conn|
-      conn.exec("SELECT * FROM recipes WHERE description IS NOT NULL ORDER BY name;")
-    end
+        conn.exec("SELECT * FROM recipes WHERE description IS NOT NULL ORDER BY name;")
+      end
        query.each do |recipe|
-        id = recipe['id']
-        name = recipe['name']
-        instructions = recipe['instructions']
-        description = recipe['description']
-        new_recipe = SingleRecipe.new(id, name, instructions, description)
+        new_recipe = SingleRecipe.new(recipe['id'], recipe['name'], recipe['instructions'], recipe['description'])
         recipes << new_recipe
       end
       recipes
